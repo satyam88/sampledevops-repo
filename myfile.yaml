@@ -6,10 +6,10 @@ Outputs:
 Resources: 
   EC2Instance: 
     Properties: 
-      AvailabilityZone: ap-south-1a
+      AvailabilityZone: ap-south-1b
       ImageId: ami-00e782930f1c3dbc7
       InstanceType: t2.micro
-      KeyName: morning8am
+      KeyName: morning10am
       SecurityGroups: 
         - !Ref InstanceSecurityGroup
     Type: "AWS::EC2::Instance" 
