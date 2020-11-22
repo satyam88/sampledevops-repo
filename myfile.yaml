@@ -1,0 +1,46 @@
+--- 
+Outputs: 
+  InstanceId: 
+    Description: "InstanceId of the newly created EC2 instance"
+    Value: EC2Instance
+Resources: 
+  EC2Instance: 
+    Properties: 
+      AvailabilityZone: ap-south-1c
+      ImageId: ami-00e782930f1c3dbc7
+      InstanceType: t2.medium
+      KeyName: morning8am
+      SecurityGroups: 
+        - !Ref InstanceSecurityGroup
+    Type: "AWS::EC2::Instance" 
+  InstanceSecurityGroup: 
+    Properties: 
+      GroupDescription: "Enable SSH access via port 22"
+      SecurityGroupIngress: 
+        - 
+          CidrIp: 0.0.0.0/0
+          FromPort: "443"
+          IpProtocol: tcp
+          ToPort: "22"
+          CidrIp: 0.0.0.0/0
+          FromPort: "3306"
+          IpProtocol: tcp
+          ToPort: "3306"          
+    Type: "AWS::EC2::SecurityGroup"
+
+  IPAddress:
+    Type: 'AWS::EC2::EIP'
+  IPAssoc:
+    Type: 'AWS::EC2::EIPAssociation'
+    Properties:
+      InstanceId: !Ref EC2Instance
+      EIP: !Ref IPAddress	
+Outputs:
+  InstanceId:
+    Description: InstanceId of the newly created EC2 instance
+    Value: !Ref EC2Instance
+  PublicIP:
+    Description: Public IP address of the newly created EC2 instance
+    Value: !GetAtt 
+      - EC2Instance
+      - PublicIp	
