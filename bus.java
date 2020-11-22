@@ -1,2 +1,2 @@
-emv_var = prod
+emv_var = preprod
 server_port = 8080
